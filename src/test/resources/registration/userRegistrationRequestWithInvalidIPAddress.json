@@ -1,0 +1,33 @@
+{
+  "data": {
+    "type": "account",
+    "attributes": {
+      "account-type": "custodial",
+      "name": "Test User",
+      "authorized-signature": "Test User",
+      "owner": {
+        "contact-type": "natural_person",
+        "name": "Test User",
+        "email": "test.user+01@gmail.com",
+        "date-of-birth":  "1995-10-10",
+        "tax-id-number": "123432123",
+        "tax-country": "US",
+        "ip-address": "202.66.167.101",
+        "geolocation": "",
+        "primary-phone-number": {
+          "country": "US",
+          "number": "1225435432",
+          "sms": false
+        },
+        "primary-address": {
+          "street-1": "Plot 10251",
+          "street-2": "Street 51",
+          "postal-code": "99503",
+          "city": "Alaska",
+          "region": "AK",
+          "country": "US"
+        }
+      }
+    }
+  }
+}
