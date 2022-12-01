@@ -41,7 +41,7 @@ public class RegistrationManager extends ApiManager {
 
     public RegistrationManager executeApi() {
         headerList.add(new Header(AUTHORIZATION_HEADER, "Bearer " + token));
-        response = execute( queryParams, headerList, new Gson().toJson(requestPojo), ContentType.JSON, REGISTRATION_URL);
+        response = execute( queryParams, null, headerList, new Gson().toJson(requestPojo), ContentType.JSON, REGISTRATION_URL);
         if (response.getStatusCode() != 201) {
             log.error(this.getClass() + "Coupon creation failed ... " + response.prettyPrint());
         }else {

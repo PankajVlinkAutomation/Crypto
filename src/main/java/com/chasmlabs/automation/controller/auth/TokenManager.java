@@ -27,7 +27,7 @@ public class TokenManager extends ApiManager {
     }
 
     public TokenManager executeApi() {
-        response = execute(null, headerList, null, ContentType.JSON, AUTH_URL);
+        response = execute(null, null,headerList, null, ContentType.JSON, AUTH_URL);
         if (response.getStatusCode() != 201) {
             log.error(this.getClass() + "Coupon creation failed ... " + response.prettyPrint());
         }else {

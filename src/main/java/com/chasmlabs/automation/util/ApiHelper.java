@@ -26,6 +26,7 @@ import java.util.*;
 public class ApiHelper extends DataHelper {
 
 	private RequestSpecification prepareRequestParams( Map<String, String> queryParams,
+													   Map<String, String> pathParams,
 													   List<Header> headers,
 			                                           String body,
 													   ContentType contentType,
@@ -33,6 +34,10 @@ public class ApiHelper extends DataHelper {
 		RequestSpecification request = RestAssured.given().relaxedHTTPSValidation().redirects().follow(false);
 		if (null != queryParams) {
 			request.queryParams(queryParams);
+		}
+
+		if (null != pathParams) {
+			request.pathParams(pathParams);
 		}
 
 		if (null != formParams) {
@@ -61,14 +66,20 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response fetchApiResponse(String requestUrl, String requestType, String body,
-			Map<String, String> queryParams, List<Header> headers, ContentType contentType, boolean checkStatus,
-			Map<String, String> formParams) {
+	public Response fetchApiResponse( String requestUrl,
+									  String requestType,
+									  String body,
+			                          Map<String, String> queryParams,
+									  Map<String, String> pathParams,
+									  List<Header> headers,
+									  ContentType contentType,
+									  boolean checkStatus,
+			                          Map<String, String> formParams) {
 
 		Response apiResponse = null;
 		String requestLog = null;
 		String queryParamLog = "";
-		RequestSpecification apiRequest = prepareRequestParams(queryParams, headers, body, contentType, formParams);
+		RequestSpecification apiRequest = prepareRequestParams(queryParams, pathParams, headers, body, contentType, formParams);
 
 		requestLog = "Request body: " + body;
 
@@ -134,8 +145,10 @@ public class ApiHelper extends DataHelper {
 	 * @param url
 	 * @return response
 	 */
-	public Response getResponse(Map<String, String> queryParams, String url) {
-		return getResponseWithHeaders(queryParams, null, url, true);
+	public Response getResponse(Map<String, String> queryParams,
+								Map<String, String> pathParams,
+								String url) {
+		return getResponseWithHeaders(queryParams, pathParams,null, url, true);
 	}
 
 	/**
@@ -148,8 +161,11 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response getResponse(Map<String, String> queryParams, String url, boolean checkStatus) {
-		return getResponseWithHeaders(queryParams, null, url, checkStatus);
+	public Response getResponse(Map<String, String> queryParams,
+								Map<String, String> pathParams,
+								String url,
+								boolean checkStatus) {
+		return getResponseWithHeaders(queryParams,pathParams, null, url, checkStatus);
 	}
 
 	/**
@@ -162,8 +178,11 @@ public class ApiHelper extends DataHelper {
 	 * @param url
 	 * @return
 	 */
-	public Response getResponseWithHeaders(Map<String, String> queryParams, List<Header> headers, String url) {
-		return getResponseWithHeaders(queryParams, headers, url, true);
+	public Response getResponseWithHeaders( Map<String, String> queryParams,
+											Map<String, String> pathParams,
+											List<Header> headers,
+											String url) {
+		return getResponseWithHeaders( queryParams, pathParams, headers, url, true);
 	}
 
 	/**
@@ -176,9 +195,13 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response getResponseWithHeaders(Map<String, String> queryParams, List<Header> headers, String url,
-			boolean checkStatus, Map<String, String> formParams) {
-		return fetchApiResponse(url, "GET", null, queryParams, headers, null, checkStatus, formParams);
+	public Response getResponseWithHeaders( Map<String, String> queryParams,
+											Map<String, String> pathParams,
+											List<Header> headers,
+											String url,
+			                                boolean checkStatus,
+											Map<String, String> formParams) {
+		return fetchApiResponse(url, "GET", null, queryParams,pathParams, headers, null, checkStatus, formParams);
 	}
 
 	/**
@@ -191,9 +214,12 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response getResponseWithHeaders(Map<String, String> queryParams, List<Header> headers, String url,
-			boolean checkStatus) {
-		return fetchApiResponse(url, "GET", null, queryParams, headers, null, checkStatus, null);
+	public Response getResponseWithHeaders( Map<String, String> queryParams,
+											Map<String, String> pathParams,
+											List<Header> headers,
+											String url,
+			                                boolean checkStatus) {
+		return fetchApiResponse(url, "GET", null, queryParams, pathParams, headers, null, checkStatus, null);
 	}
 
     /**
@@ -206,10 +232,13 @@ public class ApiHelper extends DataHelper {
      * @param checkStatus
      * @return
      */
-    public Response deleteResponseWithHeaders(Map<String, String> queryParams, List<Header> headers, String url,
-                                                     boolean checkStatus)
+    public Response deleteResponseWithHeaders(Map<String, String> queryParams,
+											  Map<String, String> pathParams,
+											  List<Header> headers,
+											  String url,
+                                              boolean checkStatus)
     {
-        return fetchApiResponse(url, "DELETE", null, queryParams, headers, null, checkStatus,null);
+        return fetchApiResponse(url, "DELETE", null, queryParams,pathParams, headers, null, checkStatus,null);
     }
 
 	/**
@@ -266,9 +295,12 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response postResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			boolean checkStatus) {
-		return fetchApiResponse(url, "POST", body, null, headers, contentType, checkStatus, null);
+	public Response postResponseWithHeaders( String body,
+											 List<Header> headers,
+											 ContentType contentType,
+											 String url,
+			                                 boolean checkStatus) {
+		return fetchApiResponse(url, "POST", body, null, null, headers, contentType, checkStatus, null);
 	}
 
 	/**
@@ -284,9 +316,14 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response postResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			Map<String, String> queryParams, boolean checkStatus) {
-		return fetchApiResponse(url, "POST", body, queryParams, headers, contentType, checkStatus, null);
+	public Response postResponseWithHeaders( String body,
+											 List<Header> headers,
+											 ContentType contentType,
+											 String url,
+			                                 Map<String, String> queryParams,
+											 Map<String, String> pathParams,
+											 boolean checkStatus) {
+		return fetchApiResponse(url, "POST", body, queryParams,pathParams, headers, contentType, checkStatus, null);
 	}
 
 	/**
@@ -302,9 +339,14 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response postResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			Map<String, String> queryParams, boolean checkStatus, Map<String, String> formParams) {
-		return fetchApiResponse(url, "POST", body, queryParams, headers, contentType, checkStatus, formParams);
+	public Response postResponseWithHeaders( String body, List<Header> headers,
+											 ContentType contentType,
+											 String url,
+			                                 Map<String, String> queryParams,
+											 Map<String, String> pathParams,
+											 boolean checkStatus,
+											 Map<String,String> formParams) {
+		return fetchApiResponse(url, "POST", body, queryParams,pathParams, headers, contentType, checkStatus, formParams);
 	}
 
 	/**
@@ -361,9 +403,12 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response putResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			boolean checkStatus) {
-		return fetchApiResponse(url, "PUT", body, null, headers, contentType, checkStatus, null);
+	public Response putResponseWithHeaders( String body,
+											List<Header> headers,
+											ContentType contentType,
+											String url,
+			                                boolean checkStatus) {
+		return fetchApiResponse(url, "PUT", body, null, null, headers, contentType, checkStatus, null);
 	}
 
 	/**
@@ -379,9 +424,13 @@ public class ApiHelper extends DataHelper {
 	 * @param formParams
 	 * @return
 	 */
-	public Response putResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			boolean checkStatus, Map<String, String> formParams) {
-		return fetchApiResponse(url, "PUT", body, null, headers, contentType, checkStatus, formParams);
+	public Response putResponseWithHeaders( String body,
+											List<Header> headers,
+											ContentType contentType,
+											String url,
+			                                boolean checkStatus,
+											Map<String, String> formParams) {
+		return fetchApiResponse(url, "PUT", body, null, null, headers, contentType, checkStatus, formParams);
 	}
 
 	/**
@@ -397,9 +446,14 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response putResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			Map<String, String> queryParams, boolean checkStatus) {
-		return fetchApiResponse(url, "PUT", body, queryParams, headers, contentType, checkStatus, null);
+	public Response putResponseWithHeaders( String body,
+											List<Header> headers,
+											ContentType contentType,
+											String url,
+			                                Map<String, String> queryParams,
+											Map<String, String> pathParams,
+											boolean checkStatus) {
+		return fetchApiResponse(url, "PUT", body, queryParams,pathParams, headers, contentType, checkStatus, null);
 	}
 
 	/**
@@ -415,9 +469,15 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response putResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
-			Map<String, String> queryParams, boolean checkStatus, Map<String, String> formParams) {
-		return fetchApiResponse(url, "PUT", body, queryParams, headers, contentType, checkStatus, formParams);
+	public Response putResponseWithHeaders( String body,
+											List<Header> headers,
+											ContentType contentType,
+											String url,
+					                        Map<String, String> queryParams,
+											Map<String, String> pathParams,
+											boolean checkStatus,
+											Map<String, String> formParams) {
+		return fetchApiResponse(url, "PUT", body, queryParams,pathParams, headers, contentType, checkStatus, formParams);
 	}
 
 /*	private void logRequestResponse(String request, String response, String url, long responseTime, String headers) {
@@ -450,7 +510,7 @@ public class ApiHelper extends DataHelper {
 				.append("_search").toString();
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("q", keyName + ":" + value);
-		Response esResponse = getResponse(queryParams, url);
+		Response esResponse = getResponse(queryParams, null,url);
 		return esResponse.asString();
 	}
 
@@ -514,7 +574,7 @@ public class ApiHelper extends DataHelper {
 	 */
 	public Response postResponseWithHeaders(String body, List<Header> headers, ContentType contentType, String url,
 			int statusCode, Map<String, String> formParams) {
-		return fetchApiResponse(url, "POST", body, null, headers, contentType, statusCode, formParams);
+		return fetchApiResponse(url, "POST", body, null, null, headers, contentType, statusCode, formParams);
 	}
 
 	/**
@@ -528,14 +588,20 @@ public class ApiHelper extends DataHelper {
 	 * @param statusCode
 	 * @return
 	 */
-	public Response fetchApiResponse(String requestUrl, String requestType, String body,
-			Map<String, String> queryParams, List<Header> headers, ContentType contentType, int statusCode,
-			Map<String, String> formParams) {
+	public Response fetchApiResponse( String requestUrl,
+									  String requestType,
+									  String body,
+			                          Map<String, String> queryParams,
+									  Map<String, String> pathParams,
+									  List<Header> headers,
+									  ContentType contentType,
+									  int statusCode,
+			                          Map<String, String> formParams) {
 
 		Response apiResponse = null;
 		String requestLog = null;
 		String queryParamsLog = "";
-		RequestSpecification apiRequest = prepareRequestParams(queryParams, headers, body, contentType, formParams);
+		RequestSpecification apiRequest = prepareRequestParams(queryParams,pathParams,  headers, body, contentType, formParams);
 
 		requestLog = "Request body: " + body;
 
@@ -607,9 +673,15 @@ public class ApiHelper extends DataHelper {
 	 * @param checkStatus
 	 * @return
 	 */
-	public Response postResponseWithHeaders(String body, Map<String, String> queryParams, List<Header> headers,
-			ContentType contentType, String url, boolean checkStatus, Map<String, String> formParams) {
-		return fetchApiResponse(url, "POST", body, queryParams, headers, contentType, checkStatus, formParams);
+	public Response postResponseWithHeaders( String body,
+											 Map<String, String> queryParams,
+											 Map<String, String> pathParams,
+											 List<Header> headers,
+			                                 ContentType contentType,
+											 String url,
+											 boolean checkStatus,
+											 Map<String, String> formParams) {
+		return fetchApiResponse(url, "POST", body, queryParams,pathParams, headers, contentType, checkStatus, formParams);
 	}
 
 

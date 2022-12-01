@@ -46,6 +46,7 @@ public class BaseApi extends BaseManager {
 	}
 
 	public Response execute( Map<String, String> queryParams,
+							 Map<String, String> pathParams,
 							 List<Header> headers,
 							 String body,
 							 ContentType contentType,
@@ -54,7 +55,7 @@ public class BaseApi extends BaseManager {
 		Response response = null;
 		switch (method) {
 		case POST:
-			response = postResponseWithHeaders(body, queryParams, headers, contentType, url, false, formParams);
+			response = postResponseWithHeaders(body, queryParams,pathParams, headers, contentType, url, false, formParams);
 			break;
 		default:
 			break;
@@ -63,6 +64,7 @@ public class BaseApi extends BaseManager {
 	}
 
 	public Response execute( Map<String, String> queryParams,
+							 Map<String, String> pathParams,
 							 List<Header> headers,
 							 String body,
 							 ContentType contentType,
@@ -71,27 +73,27 @@ public class BaseApi extends BaseManager {
 		switch (method) {
 		case GET:
 			if (headers.isEmpty())
-				response = getResponse(queryParams, url, false);
+				response = getResponse(queryParams, pathParams, url, false);
 			else
-				response = getResponseWithHeaders(queryParams, headers, url, false);
+				response = getResponseWithHeaders(queryParams,pathParams, headers, url, false);
 			break;
 		case POST:
 			if (headers.isEmpty())
 				response = postResponse(body, contentType, url, false);
 			else
-				response = postResponseWithHeaders(body, queryParams, headers, contentType, url, false, null);
+				response = postResponseWithHeaders(body, queryParams, pathParams, headers, contentType, url, false, null);
 			break;
 			case PATCH:
 				if (headers.isEmpty())
 					response = postResponse(body, contentType, url, false);
 				else
-					response = postResponseWithHeaders(body, queryParams, headers, contentType, url, false, null);
+					response = postResponseWithHeaders(body, queryParams,pathParams, headers, contentType, url, false, null);
 				break;
 			case PUT:
 				if (headers.isEmpty())
 					response = putResponse(body,contentType,url);
 				else
-					response = putResponseWithHeaders(body,headers,contentType,url,queryParams,false);
+					response = putResponseWithHeaders(body,headers,contentType,url,queryParams,pathParams,false);
 		default:
 			break;
 		}
