@@ -8,7 +8,7 @@ public interface Constants {
 
 
 	String AUTHORIZATION_HEADER = "Authorization";
-	String AUTH_TOKEN = "Basic cHJpbWV0cnVzdGRldkBjYXJvbGluYWNyeXB0by5jb206UHJpbWVUcnVzdDIwMjEh";
+	String AUTH_TOKEN = "Basic test_token";
 
 	interface ERROR_CODE {
 		String CONFIGURATION_PROPERTY = "ERR_CFG_00";
