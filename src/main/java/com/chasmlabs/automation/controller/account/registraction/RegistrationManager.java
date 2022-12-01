@@ -58,7 +58,7 @@ public class RegistrationManager extends ApiManager {
     }
 
     @Override
-    public responsePojo getResponsePojo() {
+    public RegistrationResponse getResponsePojo() {
         return this.responsepojo;
     }
 }
