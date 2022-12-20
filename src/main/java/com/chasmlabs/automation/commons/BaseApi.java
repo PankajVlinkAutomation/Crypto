@@ -75,7 +75,7 @@ public class BaseApi extends BaseManager {
 			if (headers.isEmpty())
 				response = getResponse(queryParams, pathParams, url, false);
 			else
-				response = getResponseWithHeaders(queryParams,pathParams, headers, url, false);
+				response = getResponseWithHeaders(queryParams, pathParams, headers, url, false);
 			break;
 		case POST:
 			if (headers.isEmpty())

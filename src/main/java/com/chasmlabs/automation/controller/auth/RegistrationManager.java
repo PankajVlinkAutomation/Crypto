@@ -1,15 +1,15 @@
-package com.chasmlabs.automation.controller.account.registraction;
+package com.chasmlabs.automation.controller.auth;
 
 import com.chasmlabs.automation.commons.ApiManager;
 import com.chasmlabs.automation.commons.BaseApi;
-import com.chasmlabs.automation.controller.auth.TokenManager;
-import com.chasmlabs.automation.pojo.requestpojo.account.registration.RegistrationRequest;
-import com.chasmlabs.automation.pojo.responsepojo.auth.registration.RegistrationResponse;
+import com.chasmlabs.automation.dto.auth.request.RegistrationRequest;
+import com.chasmlabs.automation.dto.auth.response.RegistrationResponse;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,30 +22,31 @@ import static com.chasmlabs.automation.util.Constants.*;
 public class RegistrationManager extends ApiManager {
 
     private Response response;
-    private RegistrationRequest requestPojo;
-    private RegistrationResponse responsepojo;
+    private RegistrationRequest requestDTO;
+    private RegistrationResponse responseDTO;
     private final List<Header> headerList = new ArrayList<>();
-    private String request;
-    private String token;
     Map<String, String> queryParams = new HashMap<>();
-
     public RegistrationManager(String path) {
         String requestData = readJsonFile(path);
         setMethod(BaseApi.MethodType.POST);
-        TokenManager tokenManager = new TokenManager();
-        var tokenRes = tokenManager.executeApi();
-        token = tokenRes.getResponsePojo().getToken();
-        queryParams.put("include", "contacts");
-        requestPojo = convertFromJson(requestData, RegistrationRequest.class);
+        requestDTO = convertFromJson(requestData, RegistrationRequest.class);
+
+        /* To change email address */
+        String email = requestDTO.getEmail();
+        String[] elements = email.split("\\+"); //nktkmr27+007@gmail.com
+        String newEmail = elements[0] + "+" + RandomUtils.nextInt() + elements[1];
+        requestDTO.setEmail(newEmail);
     }
 
     public RegistrationManager executeApi() {
-        headerList.add(new Header(AUTHORIZATION_HEADER, "Bearer " + token));
-        response = execute( queryParams, null, headerList, new Gson().toJson(requestPojo), ContentType.JSON, REGISTRATION_URL);
-        if (response.getStatusCode() != 201) {
+        headerList.add(new Header(CLIENT_ID_HEADER, CLIENT_ID));
+        headerList.add(new Header(CLIENT_SECRET_HEADER, CLIENT_SECRET));
+
+        response = execute( queryParams, null, headerList, new Gson().toJson(requestDTO), ContentType.JSON, REGISTRATION_URL);
+        if (response.getStatusCode() != 200) {
             log.error(this.getClass() + "Coupon creation failed ... " + response.prettyPrint());
         }else {
-            responsepojo = convertFromJson(response.asString(), RegistrationResponse.class);
+            responseDTO = convertFromJson(response.asString(), RegistrationResponse.class);
         }
         return this;
     }
@@ -59,6 +60,6 @@ public class RegistrationManager extends ApiManager {
 
     @Override
     public RegistrationResponse getResponsePojo() {
-        return this.responsepojo;
+        return this.responseDTO;
     }
 }

@@ -1,0 +1,11 @@
+{
+  "country" : "US",
+  "state" : "AK",
+  "first_name" : "Ankit",
+  "last_name" : "Kumar",
+  "email": "nktkmr27+007@gmail.com",
+  "agree_to_terms" : "1",
+  "agree_for_age" : "1",
+  "password": "Qwertyui@321",
+  "password_confirmation": "Qwertyui@321"
+}

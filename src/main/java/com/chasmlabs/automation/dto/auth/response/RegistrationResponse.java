@@ -1,4 +1,4 @@
-package com.chasmlabs.automation.pojo.responsepojo.auth.authentication;
+package com.chasmlabs.automation.dto.auth.response;
 
 import com.chasmlabs.automation.commons.ApiManager;
 import com.google.gson.annotations.Expose;
@@ -10,7 +10,30 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TokenResponse extends ApiManager.responsePojo{
+public class RegistrationResponse extends ApiManager.responsePojo{
+    @SerializedName("success")
+    @Expose
+    private String success;
+
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    @SerializedName("status_code")
+    @Expose
+    private String statusCode;
+
+    @SerializedName("type")
+    @Expose
+    private String type;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
+
+    @SerializedName("data")
+    @Expose
+    private RegistrationResponseData data;
 
     @SerializedName("token")
     @Expose
@@ -40,4 +63,6 @@ public class TokenResponse extends ApiManager.responsePojo{
     public int getErrorCode() {
         return 0;
     }
+
+
 }

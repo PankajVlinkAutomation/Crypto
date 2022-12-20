@@ -1,4 +1,4 @@
-package com.chasmlabs.automation.pojo.responsepojo.auth.registration;
+package com.chasmlabs.automation.dto.auth.response;
 
 import com.chasmlabs.automation.commons.ApiManager;
 import com.google.gson.annotations.Expose;
@@ -10,20 +10,32 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegistrationResponse extends ApiManager.responsePojo{
+public class VerifyResponseDTO extends ApiManager.responsePojo{
+
+    @SerializedName("success")
+    @Expose
+    private String success;
+
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("responseCode")
+
+    @SerializedName("status_code")
     @Expose
-    private Integer responseCode;
+    private String statusCode;
+
+    @SerializedName("type")
+    @Expose
+    private String type;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
+
     @SerializedName("data")
     @Expose
-    private RegistrationResponseData data;
+    private VerifyResponseData data;
 
-    @SerializedName("includes")
-    @Expose
-    private Object includes;
 
     @Override
     public Object getStatus() {

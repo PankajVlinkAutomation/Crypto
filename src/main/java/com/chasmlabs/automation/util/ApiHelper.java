@@ -32,12 +32,12 @@ public class ApiHelper extends DataHelper {
 													   ContentType contentType,
 													   Map<String, String> formParams) {
 		RequestSpecification request = RestAssured.given().relaxedHTTPSValidation().redirects().follow(false);
-		if (null != queryParams) {
-			request.queryParams(queryParams);
+		if (null != queryParams && !queryParams.isEmpty()) {
+			pathParams.forEach(request::queryParam);
 		}
 
-		if (null != pathParams) {
-			request.pathParams(pathParams);
+		if (null != pathParams && !pathParams.isEmpty()) {
+			pathParams.forEach(request::pathParam);
 		}
 
 		if (null != formParams) {
@@ -98,8 +98,7 @@ public class ApiHelper extends DataHelper {
 		try {
 			switch (RequestType.valueOf(requestType.toUpperCase())) {
 			case GET:
-				apiRequest.baseUri(requestUrl);
-				apiResponse = apiRequest.get();
+				apiResponse = apiRequest.get(requestUrl);
 				break;
 			case POST:
 				apiResponse = apiRequest.post(requestUrl);
