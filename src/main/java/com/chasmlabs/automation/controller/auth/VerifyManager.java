@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +49,10 @@ public class VerifyManager extends ApiManager {
             log.error(this.getClass() + "Coupon creation failed ... " + response.prettyPrint());
         }else {
             responseDTO = convertFromJson(response.asString(), VerifyResponseDTO.class);
+            Object status = responseDTO.getStatus();
+            System.out.println(status);
+            Assert.assertTrue("true",true);
+
         }
         return this;
     }

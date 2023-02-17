@@ -1,0 +1,8 @@
+{
+  "username": "test@gmail.com",
+  "password": "Qwertyui@321",
+  "client_id" : "2",
+  "client_secret" :"bgTiN7tBhoZTbLmlZCWxeoXVV0qSkvX5K2thwQNn",
+  "grant_type":"password",
+  "scope" : "user"
+}

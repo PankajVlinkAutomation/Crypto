@@ -24,7 +24,7 @@ public abstract class ApiManager extends BaseApi {
 		public String getCode() {
 			return null;
 		}
-		public String getMessage() {
+		public Object getMessage() {
 			return null;
 		}
 	}

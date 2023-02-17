@@ -1,0 +1,19 @@
+{
+  "contact_type": "natural_person",
+  "first_name": "Pankaj",
+  "last_name": "Kashyap",
+  "email" : "testerq065+3@gmail.com",
+  "date_of_birth" : "1990-01-30",
+  "tax_id_number" : "132435469",
+  "tax_country" : "US",
+  "socure_document_uuid" :"null",
+  "socure_device_id" : "null",
+  "primary_phone" : "1225435432",
+  "primary_address_street_1" : "Plot 10251",
+  "primary_address_street_2" : "Street 4",
+  "primary_address_postal_code" : "99503",
+  "primary_address_city" : "Alaska",
+  "primary_address_state" : "AK",
+  "primary_address_country" : "US",
+  "ip_address" : "202.173.125.105"
+}

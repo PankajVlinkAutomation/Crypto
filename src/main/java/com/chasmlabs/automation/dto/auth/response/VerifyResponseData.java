@@ -35,7 +35,6 @@ public class VerifyResponseData {
     @Expose
     public String  emailVerifiedAt;
 
-
     @SerializedName("country")
     @Expose
     public String  country;

@@ -1,0 +1,20 @@
+{
+  "id": "",
+  "primary_phone_country": "US",
+  "tax_country": "US",
+  "primary_address_country": "US",
+  "primary_phone_sms": "0",
+  "first_name" : "Pankaj",
+  "last_name" : "Tester",
+  "primary_phone" : "7905727019",
+  "sex" : "male",
+  "date_of_birth": "01-01-1990",
+  "taxId_or_ssn": "taxid",
+  "tax_id_number": "908767439",
+  "primary_address_street_1": "Street 678",
+  "primary_address_street_2": "Plot 678",
+  "primary_address_city" : "Alaska",
+  "primary_address_state": "AK",
+  "primary_address_postal_code" : "99503",
+  "pt_custodial_agreement": "1"
+}

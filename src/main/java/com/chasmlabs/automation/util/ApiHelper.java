@@ -1,6 +1,6 @@
 package com.chasmlabs.automation.util;
 
-import com.chasmlabs.automation.enums.RequestType;
+import com.chasmlabs.automation.dto.transaction.response.enums.RequestType;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;

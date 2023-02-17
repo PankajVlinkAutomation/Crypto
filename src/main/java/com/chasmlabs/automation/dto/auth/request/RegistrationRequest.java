@@ -45,4 +45,5 @@ public class RegistrationRequest extends ApiManager.requestPojo {
     @SerializedName("password_confirmation")
     @Expose
     public String  passwordConfirmation;
+
 }
