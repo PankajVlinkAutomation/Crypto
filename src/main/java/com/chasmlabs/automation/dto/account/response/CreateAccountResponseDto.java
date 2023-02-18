@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter @NoArgsConstructor
 public class CreateAccountResponseDto extends ApiManager.responsePojo {
+
     @SerializedName("data")
     @Expose
     private CreateAccountResponse data;
